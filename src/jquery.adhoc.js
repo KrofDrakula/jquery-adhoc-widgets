@@ -36,8 +36,23 @@
         augmentViewModel: function(widget, viewModel) {
             var $widget = (typeof widget.jquery === 'undefined')? $(widget): widget,
                 ret: {
+                    /**
+                     * A jQuery instance containing the widget
+                     */
                     _widget: $widget,
+                    
+                    /**
+                     * The configuration object for the current widget
+                     */
                     _config: $widget.widgetAPI().config,
+                    
+                    /**
+                     * This property contains all the jQuery templates contained
+                     * within the current widget; it scans through all <script>
+                     * elements having the type "text/x-jquery-tmpl". It uses their
+                     * class name and camelCases it after adding it to the
+                     * _templates member 
+                     */
                     _templates: (function() {
                     	var r = {};
                     	$widget.find('script[type="text/x-jquery-tmpl"]').each(function() {
