@@ -37,13 +37,17 @@
             var $widget = (typeof widget.jquery === 'undefined')? $(widget): widget,
                 ret: {
                     _widget: $widget,
-                    _templates: {},
-                    _config: $widget.widgetAPI().config
+                    _config: $widget.widgetAPI().config,
+                    _templates: (function() {
+                    	var r = {};
+                    	$widget.find('script[type="text/x-jquery-tmpl"]').each(function() {
+                            var className = $.trim($(this).attr('class'));
+                            className = className.replace(/-[\w\d]/g, function($0) { return $0.toUpperCase(); });
+                            r.templates[className] = $(this).html(); 
+                        });
+                    	return r;
+                    }())
                 }
-            
-            $widget.find('script[type="text/x-jquery-tmpl"]').each(function() {
-                // TODO: insert into templates
-            });
             
             return $.extend(ret, viewModel);
         }
