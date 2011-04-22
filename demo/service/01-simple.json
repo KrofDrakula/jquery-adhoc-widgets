@@ -1,0 +1,19 @@
+{
+    "roles": [
+        {
+            "character": "The Terminator",
+            "actor":     "Arnold Schwarzenegger",
+            "quote":     "Hasta la vista, baby!"
+        },
+        {
+            "character": "Sarah Connor",
+            "actor":     "Linda Hamilton",
+            "quote":     "There's 215 bones in the human body. That's one."
+        },
+        {
+            "character": "John Connor",
+            "actor":     "Edward Furlong",
+            "quote":     "We got Skynet by the balls now, don't we?"
+        }
+    ]
+}

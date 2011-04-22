@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Simple example</title>
+        <style>
+            .widget-list li { padding: 4px; margin: 2px 0; border: 1px solid #ccc; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; display: block; }
+            .widget-list .cards li { float: left; width: 200px; margin-right: 10px; }
+        </style>
+    </head>
+    <body>
+        <h1>01 - Simple example</h1>
+        <p>
+            Below we have an empty list that we'd like to populate using a JSON data
+            service. We will configure the widget with a <code>dataUrl</code> so it
+            knows where to fetch the data from.
+        </p>
+        
+        <!-- When passing JSON into an HTML attribute, use single quotes to avoid having to escape with &quot; -->
+        <div class="widget-list" data-config='{"dataUrl":"service/01-simple.json"}'>
+            <script type="text/x-jquery-tmpl" class="item">
+                <li>
+                    <strong>${character}</strong>: "${quote}" <em>(played by <span class="person">${actor}</span>)</em>
+                </li>
+            </script>
+            <ul>
+            </ul>
+        </div>
+        
+        <p>
+            To change the way the list looks, we can just change the template:
+        </p>
+        
+        <div class="widget-list" data-config='{"dataUrl":"service/01-simple.json"}'>
+            <script type="text/x-jquery-tmpl" class="item">
+                <li>
+                    <div>
+                        <img src="//placehold.it/200x120/c00/fff" alt="${character}" title="${character}"/>
+                    </div>
+                    <blockquote>
+                        "${quote}"
+                    </blockquote>
+                    <cite>${character} (played by <em>${actor}</em>)</cite>
+                </li>
+            </script>
+            <ul class="cards">
+            </ul>
+        </div>
+        
+        
+        <!-- The scripts -->
+        
+        <!-- We obviously need jQuery -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+        
+        <!-- We include jQuery Templates for processing the <script> templates -->
+        <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+        
+        <!-- We load up the adhoc plugin -->
+        <script src="../src/jquery.adhoc.js"></script>
+        
+        <!-- Widget library code -->
+        <script src="js/01-simple.js"></script>
+        
+        <!-- Hook it all up -->
+        <script>
+            $(document).ready(function() {
+                $('.widget-list').ajaxListWidget();
+            });
+        </script>
+    </body>
+</html>

@@ -11,9 +11,19 @@
          * This is a convenience method to fetch the element's API object.
          * Retursn the API object if found, `false` otherwise.
          */
-        widgetAPI: function() {
-            var API = this.data($.fn.extend.widgetAPI.name);
-            return $.isPlainObject(API)? API: false;
+        API: function(config) {
+            var API;
+            if(typeof config === 'undefined') {
+                // with no arguments passed, we act as a getter
+                API = this.data($.fn.API.name);
+                return $.isPlainObject(API)? API: false;
+            } else {
+                // we set whatever is present in the config parameter
+                // to the widget's data store and return the current
+                // object for chaining purposes
+                this.data($.fn.API.name, config);
+                return this;
+            }
         }
     
     });
@@ -22,7 +32,7 @@
      * We store the storage name so it can easily be customized in code without
      * source modification.
      */
-    $.fn.extend.widgetAPI.name = 'widget-api';
+    $.fn.API.name = 'widget-api';
     
     /*
      * We extend the global jQuery object to provide utility methods
@@ -35,7 +45,7 @@
          */
         augmentViewModel: function(widget, viewModel) {
             var $widget = (typeof widget.jquery === 'undefined')? $(widget): widget,
-                ret: {
+                ret = {
                     /**
                      * A jQuery instance containing the widget
                      */
@@ -44,7 +54,7 @@
                     /**
                      * The configuration object for the current widget
                      */
-                    _config: $widget.widgetAPI().config,
+                    _config: $widget.API().config,
                     
                     /**
                      * This property contains all the jQuery templates contained
@@ -58,14 +68,21 @@
                     	$widget.find('script[type="text/x-jquery-tmpl"]').each(function() {
                             var className = $.trim($(this).attr('class'));
                             className = className.replace(/-[\w\d]/g, function($0) { return $0.toUpperCase(); });
-                            r.templates[className] = $(this).html(); 
+                            r[className] = $(this).html(); 
                         });
                     	return r;
                     }())
-                }
+                };
             
-            return $.extend(ret, viewModel);
+            return $.extend(true, ret, $.augmentViewModel.base, viewModel);
         }
     });
+    
+    /**
+     * This object contains additional members added to the
+     * viewModel passed into the `$.augmentViewModel()` method
+     * which can be overriden by 
+     */
+    $.augmentViewModel.base = { context: null };
     
 }(jQuery));
