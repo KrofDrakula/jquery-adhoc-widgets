@@ -11,9 +11,9 @@
          * This is a convenience method to fetch the element's API object.
          * Retursn the API object if found, `false` otherwise.
          */
-        API: function(config) {
+        API: function(api) {
             var API;
-            if(typeof config === 'undefined') {
+            if(typeof api === 'undefined') {
                 // with no arguments passed, we act as a getter
                 API = this.data($.fn.API.name);
                 return $.isPlainObject(API)? API: false;
@@ -21,7 +21,7 @@
                 // we set whatever is present in the config parameter
                 // to the widget's data store and return the current
                 // object for chaining purposes
-                this.data($.fn.API.name, config);
+                this.data($.fn.API.name, api);
                 return this;
             }
         }
@@ -32,7 +32,7 @@
      * We store the storage name so it can easily be customized in code without
      * source modification.
      */
-    $.fn.API.name = 'widget-api';
+    $.fn.API.name = 'widget-API';
     
     /*
      * We extend the global jQuery object to provide utility methods
