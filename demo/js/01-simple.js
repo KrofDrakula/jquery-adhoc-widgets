@@ -70,14 +70,18 @@
             };
             
             
-            /**
+            /*
              * We only expose those methods and properties of the internal API
              * that we want accessible from outside of this code.
              */
             widget.API({
-                refresh: API.refresh,
-                config: config
+                refresh: API.refresh
             });
+            
+            /*
+             * We store the widget's configuration for public use.
+             */
+            widget.config(config);
             
             // After everything's set up, we fire the widget initialization
             API.init();

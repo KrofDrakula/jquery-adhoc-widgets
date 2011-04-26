@@ -24,6 +24,19 @@
                 this.data($.fn.API.name, api);
                 return this;
             }
+        },
+        
+        config: function(_config) {
+            var config;
+            if(typeof _config === 'undefined') {
+                // getter
+                config = this.data($.fn.config.name);
+                return $.isPlainObject(config)? config: false;  
+            } else {
+                // setter
+                this.data($.fn.config.name, _config);
+                return this;
+            }
         }
     
     });
@@ -33,6 +46,11 @@
      * source modification.
      */
     $.fn.API.name = 'widget-API';
+    
+    /**
+     * Ditto for config object
+     */
+    $.fn.config.name = 'widget-config';
     
     /*
      * We extend the global jQuery object to provide utility methods
@@ -54,7 +72,7 @@
                     /**
                      * The configuration object for the current widget
                      */
-                    _config: $widget.API().config,
+                    _config: $widget.config(),
                     
                     /**
                      * This property contains all the jQuery templates contained
