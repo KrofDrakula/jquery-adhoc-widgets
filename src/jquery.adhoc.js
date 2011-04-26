@@ -26,6 +26,9 @@
             }
         },
         
+        /**
+         * A convenience method for widget config, same as above.
+         */
         config: function(_config) {
             var config;
             if(typeof _config === 'undefined') {
@@ -37,6 +40,14 @@
                 this.data($.fn.config.name, _config);
                 return this;
             }
+        },
+        
+        /**
+         * Shorthand for exposing the API and configuration.
+         */
+        expose: function(API, config) {
+            this.eq(0).API(API);
+            this.eq(0).config(config);
         }
     
     });
@@ -93,14 +104,23 @@
                 };
             
             return $.extend(true, ret, $.augmentViewModel.base, viewModel);
+        },
+        
+        range: function(a, b) {
+            var c = [];
+            for(var i = a; i <= b; i++) {
+                c.push(i);
+            }
+            return c;
         }
     });
     
     /**
      * This object contains additional members added to the
      * viewModel passed into the `$.augmentViewModel()` method
-     * which can be overriden by 
+     * which can be overriden by data passed into the `viewModel`
+     * parameter.
      */
-    $.augmentViewModel.base = { context: null };
+    $.augmentViewModel.base = { };
     
 }(jQuery));

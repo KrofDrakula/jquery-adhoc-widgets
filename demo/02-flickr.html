@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Flick Demo</title>
+    </head>
+    <body>
+        <h1>Flickr Demo</h1>
+        
+        <div class="widget-flickr">
+            <script type="text/x-jquery-tmpl" class="item">
+                <li><a href="${link}"><img src="${src}" alt="${alt}"/></a></li>
+            </script>
+            <script type="text/x-jquery-tmpl" class="controls">
+                <div class="controls">
+                    <a href="#" class="prev">Nazaj</a>
+                    <a href="#" class="next">Naprej</a>
+                    <ol>
+                        {{each pages}}
+                        <li><a href="#">${$value}</a></li>
+                        {{/each}}
+                    </ol>
+                </div>
+            </script>
+            <ol></ol>
+        </div>
+        
+        
+        <!-- The scripts -->
+        
+        <!-- We obviously need jQuery -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+        
+        <!-- We include jQuery Templates for processing the <script> templates -->
+        <script src="http://ajax.microsoft.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
+        
+        <!-- We load up the adhoc plugin -->
+        <script src="../src/jquery.adhoc.js"></script>
+        
+        <!-- Widget library code -->
+        <script src="js/02-flickr.js"></script>
+        
+        <!-- Hook it all up -->
+        <script>
+            $(document).ready(function() {
+                $('.widget-flickr').flickrGallery();
+            });
+        </script>
+    </body>
+</html>
