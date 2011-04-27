@@ -15,13 +15,13 @@
             var API;
             if(typeof api === 'undefined') {
                 // with no arguments passed, we act as a getter
-                API = this.data($.fn.API.name);
-                return $.isPlainObject(API)? API: false;
+                API = this.eq(0).data($.fn.API.storeName);
+                return API || false;
             } else {
                 // we set whatever is present in the config parameter
                 // to the widget's data store and return the current
                 // object for chaining purposes
-                this.data($.fn.API.name, api);
+                this.eq(0).data($.fn.API.storeName, api);
                 return this;
             }
         },
@@ -33,11 +33,11 @@
             var config;
             if(typeof _config === 'undefined') {
                 // getter
-                config = this.data($.fn.config.name);
-                return $.isPlainObject(config)? config: false;  
+                config = this.eq(0).data($.fn.config.storeName);
+                return config || false;  
             } else {
                 // setter
-                this.data($.fn.config.name, _config);
+                this.eq(0).data($.fn.config.storeName, _config);
                 return this;
             }
         },
@@ -56,12 +56,12 @@
      * We store the storage name so it can easily be customized in code without
      * source modification.
      */
-    $.fn.API.name = 'widget-API';
+    $.fn.API.storeName = 'widget-API';
     
     /**
      * Ditto for config object
      */
-    $.fn.config.name = 'widget-config';
+    $.fn.config.storeName = 'widget-config';
     
     /*
      * We extend the global jQuery object to provide utility methods

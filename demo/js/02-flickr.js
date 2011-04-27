@@ -18,8 +18,9 @@
                     }
                 },
                 
-                refresh: function() {
-                    $.getJSON(config.dataUrl, function(data) {
+                refresh: function(tags) {
+                    var url = (typeof tags === 'undefined' || $.trim(tags) == '')? config.dataUrl: config.dataUrl + '&tags=' + $.trim(tags).split(' ').join(',');
+                    $.getJSON(url, function(data) {
                         var viewModel = [];
                         for(var i = 0; i < data.items.length; i++) {
                             // Flickr data model -> viewModel
@@ -59,6 +60,7 @@
                         items.eq(n * config.itemsPerPage + i).show();
                     }
                     currentPage = n;
+                    widget.find('.controls ol li').removeClass('current').eq(n).addClass('current');
                 }
             };
             
@@ -72,7 +74,7 @@
                 API.goToPage($(this).parent().index());
             });
             
-            widget.API({
+            var publicAPI = {
                 refresh: API.refresh,
                 next: API.next,
                 prev: API.prev,
@@ -80,7 +82,9 @@
                 // an example of a custom function that provides
                 // a value from an internal variable
                 getPage: function() { return currentPage; }
-            });
+            }; 
+            
+            widget.API(publicAPI);
             
             widget.config(config);
             

@@ -2,14 +2,28 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>Flick Demo</title>
+        <title>Flickr Demo</title>
+        <style>
+            .widget-flickr { position: relative; padding: 10px; margin: 10px 0; width: 600px; border: 1px dashed #ccc; border-radius: 5px; font: normal 14px "Segoe UI", Tahoma, sans-serif; }
+            .widget-flickr>ol { padding: 0; margin: 0 60px 40px 60px; }
+            .widget-flickr>ol:after { content: ""; display: block; clear: both; height: 0; }
+            .widget-flickr>ol li { float: left; width: 30%; height: 120px; display: block; margin: 0 1.4%; padding: 0; border: 1px solid #ccc; }
+            .widget-flickr>ol li img { max-width: 100%; max-height: 100%; display: block; margin: 0 auto; }
+            .widget-flickr .controls>a { display: block; position: absolute; top: 45%; border: 1px solid #ccc; border-radius: 3px; background: #eee; color: black; padding: 3px; text-decoration: none; }
+            .widget-flickr .controls a.next { right: 10px; }
+            .widget-flickr .controls a.prev { left: 10px; }
+            .widget-flickr .controls ol { position: absolute; margin: 0; padding: 0; bottom: 10px; left: 60px; right: 60px; text-align: center; }
+            .widget-flickr .controls ol li { display: inline; margin: 0 0.5em }
+            .widget-flickr .controls ol li a { text-decoration: none; font-style: italic; color: #999 }
+            .widget-flickr .controls ol li.current a { text-decoration: underline }
+        </style>
     </head>
     <body>
         <h1>Flickr Demo</h1>
         
         <div class="widget-flickr">
             <script type="text/x-jquery-tmpl" class="item">
-                <li><a href="${link}"><img src="${src}" alt="${alt}"/></a></li>
+                <li><a href="${link}" target="_blank"><img src="${src}" alt="${alt}"/></a></li>
             </script>
             <script type="text/x-jquery-tmpl" class="controls">
                 <div class="controls">
@@ -24,6 +38,9 @@
             </script>
             <ol></ol>
         </div>
+        
+        <input type="search" id="tags" placeholder="Search tags"/>
+        <button id="search">Search</button>
         
         
         <!-- The scripts -->
@@ -44,6 +61,12 @@
         <script>
             $(document).ready(function() {
                 $('.widget-flickr').flickrGallery();
+                
+                $('#search').click(function(ev) {
+                    $('.widget-flickr').API().refresh($('#tags').val());
+                    console.debug($('#tags').val());
+                    ev.preventDefault();
+                });
             });
         </script>
     </body>
