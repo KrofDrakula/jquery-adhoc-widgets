@@ -74,7 +74,7 @@
                 API.goToPage($(this).parent().index());
             });
             
-            var publicAPI = {
+            widget.API({
                 refresh: API.refresh,
                 next: API.next,
                 prev: API.prev,
@@ -82,9 +82,7 @@
                 // an example of a custom function that provides
                 // a value from an internal variable
                 getPage: function() { return currentPage; }
-            }; 
-            
-            widget.API(publicAPI);
+            });
             
             widget.config(config);
             
