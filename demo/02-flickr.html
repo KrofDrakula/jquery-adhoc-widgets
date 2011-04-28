@@ -64,7 +64,6 @@
                 
                 $('#search').click(function(ev) {
                     $('.widget-flickr').API().refresh($('#tags').val());
-                    console.debug($('#tags').val());
                     ev.preventDefault();
                 });
             });
