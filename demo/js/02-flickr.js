@@ -63,7 +63,7 @@
                     widget.find('.controls ol li').removeClass('current').eq(n).addClass('current');
                 }
             };
-            
+                        
             widget.delegate('.controls a.next, .controls a.prev', 'click', function(ev) {
                 if($(this).is('.next'))
                     API.next();
@@ -72,6 +72,7 @@
                 ev.preventDefault();
             }).delegate('.controls li a', 'click', function(ev) {
                 API.goToPage($(this).parent().index());
+                ev.preventDefault();
             });
             
             widget.API({
